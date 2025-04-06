@@ -1,10 +1,16 @@
 import React from 'react';
-import {View, StyleSheet, TouchableOpacity, StatusBar} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  StatusBar,
+  Platform,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Text from './Text';
 import Icon from 'react-native-vector-icons/Ionicons';
 import palette from '@styles/palette';
-
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 interface ScreenProps {
   children: React.ReactNode;
   showNavbar?: boolean;
@@ -30,6 +36,7 @@ const Screen: React.FC<ScreenProps> = ({
   rightIcon,
 }) => {
   const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
 
   const renderNavBarContent = () => (
     <>
@@ -74,6 +81,9 @@ const Screen: React.FC<ScreenProps> = ({
   return (
     <View style={styles.container}>
       <StatusBar barStyle={'dark-content'} backgroundColor="#FFFFFF" />
+      {Platform.OS === 'ios' && (
+        <View style={[styles.statusBar, {height: insets.top}]} />
+      )}
       {showNavbar && (
         <View style={[styles.navbar]}>{renderNavBarContent()}</View>
       )}
@@ -137,6 +147,9 @@ const styles = StyleSheet.create({
   subtitle: {
     marginTop: 6,
     color: palette.primary,
+  },
+  statusBar: {
+    backgroundColor: '#FFFFFF',
   },
 });
 
