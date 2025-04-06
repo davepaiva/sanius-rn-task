@@ -3,6 +3,7 @@ import React from 'react';
 import {ImageBackground, StyleSheet, View, Pressable} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Text from '@components/Text';
+import {format} from 'date-fns';
 interface MovieListItemProps {
   title: string;
   posterUrl: string;
@@ -42,9 +43,14 @@ const MovieListItem: React.FC<MovieListItemProps> = ({
               numberOfLines={2}>
               {title}
             </Text>
-            <Text variant="light" size="small" weight="Medium">
-              {releaseDate}
-            </Text>
+            <View style={styles.infoContainer}>
+              <Text variant="light" size="x_small" weight="Medium">
+                {format(new Date(releaseDate), 'MMM d, yyyy')}
+              </Text>
+              <Text variant="light" size="x_small" weight="Medium">
+                Rating {voteAverage.toFixed(1)}
+              </Text>
+            </View>
           </View>
         </LinearGradient>
       </ImageBackground>
@@ -54,7 +60,6 @@ const MovieListItem: React.FC<MovieListItemProps> = ({
 
 const styles = StyleSheet.create({
   card: {
-    maxWidth: 335,
     width: '100%',
     marginBottom: 20,
   },
@@ -75,6 +80,10 @@ const styles = StyleSheet.create({
   },
   firstItem: {
     marginTop: 30,
+  },
+  infoContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
 
