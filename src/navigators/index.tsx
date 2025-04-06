@@ -15,40 +15,20 @@ export type RootStackParamList = {
     description: string;
     genre_ids: number[];
     video: boolean;
-  };
-  SelectCinema: {
-    title: string;
-  };
-  BookSeats: {
-    hall: string;
-    time: string;
-    date: string;
-    price: number;
-    movieTitle: string;
-  };
-  Trailer: {
-    videoKey: string;
+    releaseDate: string;
+    voteAverage: number;
   };
 };
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
+export type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
 export type MovieDetailsProps = NativeStackScreenProps<
   RootStackParamList,
   'MovieDetails'
 >;
-export type BookSeatsProps = NativeStackScreenProps<
-  RootStackParamList,
-  'BookSeats'
->;
-export type SelectCinemaProps = NativeStackScreenProps<
-  RootStackParamList,
-  'SelectCinema'
->;
-export type TrailerProps = NativeStackScreenProps<
-  RootStackParamList,
-  'Trailer'
->;
+
 const RootStackNavigator = () => {
   return (
     <>

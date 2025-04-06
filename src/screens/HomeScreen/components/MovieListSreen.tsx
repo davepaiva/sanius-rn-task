@@ -69,6 +69,8 @@ const MovieListScreen = ({
         genre_ids: item.genre_ids,
         video: item.video,
         id: item.id,
+        releaseDate: item.release_date,
+        voteAverage: item.vote_average,
       });
     };
 
