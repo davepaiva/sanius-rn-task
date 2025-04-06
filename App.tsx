@@ -1,13 +1,11 @@
 import React, {useEffect} from 'react';
 import RootStack from '@navigators/index';
 import {NavigationContainer} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native';
-import globalStyles from '@styles/globalStyles';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import getMovieGenreList from '@api/GetMovieGenreList';
+import getMovieGenreList from '@api/getMovieGenreList';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import asyncStorageKeys from '@app_utils/asynStorageKeys';
-import getTvGenreList from '@api/GetTvGenreList';
+import getTvGenreList from '@api/getTvGenreList';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
 // Create a client

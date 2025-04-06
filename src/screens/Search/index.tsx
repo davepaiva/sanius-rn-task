@@ -39,7 +39,9 @@ const SearchScreen: React.FC<SearchViewProps> = ({}) => {
     initialPageParam: 1,
     getNextPageParam: lastPage =>
       lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined,
-    enabled: searchQuery.length > 2,
+    enabled: searchQuery.length > 1,
+    staleTime: Infinity,
+    gcTime: Infinity,
   });
 
   // Flatten the search results from all pages
