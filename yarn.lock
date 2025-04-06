@@ -1841,6 +1841,13 @@
   dependencies:
     "@tanstack/query-core" "5.71.10"
 
+"@types/axios-curlirize@^1.3.5":
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/@types/axios-curlirize/-/axios-curlirize-1.3.5.tgz#4dc8e70306c91092f1983b85fdce57e4f9999abb"
+  integrity sha512-8+iP68EMQwmGsO53u6cTgVq7jHKfDvcR+48ImZ4UoSxgy69shY21A5yPQCuG3lNbNL5oLxPzBELZD10Y94ydGg==
+  dependencies:
+    axios ">=0.19.0"
+
 "@types/babel__core@^7.1.14":
   version "7.20.5"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.20.5.tgz#3df15f27ba85319caa07ba08d0721889bb39c017"
@@ -2366,6 +2373,20 @@ available-typed-arrays@^1.0.7:
   integrity sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==
   dependencies:
     possible-typed-array-names "^1.0.0"
+
+axios-curlirize@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/axios-curlirize/-/axios-curlirize-2.0.0.tgz#c63eedac2c18ef5591371d7658b733cacd2e731a"
+  integrity sha512-TrQBa8MfIwaYsrCoYhfCr7NDRXLuGm+Rqh/PtAuO64b8PCCOJWn37BWQvpN4/mzzig3uHb4qXzvpxJmALHaiwA==
+
+axios@>=0.19.0:
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.8.4.tgz#78990bb4bc63d2cae072952d374835950a82f447"
+  integrity sha512-eBSYY4Y68NNlHbHBMdeDmKNtDgXWhQsJcGqzO3iLUM0GraQFSS9cVgPX5I9b3lbdFKyYoAEGAZF1DwhTaljNAw==
+  dependencies:
+    follow-redirects "^1.15.6"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
 
 axios@^1.7.9:
   version "1.7.9"

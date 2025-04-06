@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Config from 'react-native-config';
+import curlirize from 'axios-curlirize';
 
 console.log('BASE_URL: ', Config.TMDB_API_BASE_URL);
 
@@ -10,6 +11,10 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+if (Config.LOG_API_CURLS === 'true') {
+  curlirize(api);
+}
 
 export enum APIEndpoints {
   NOW_PLAYING = '/movie/now_playing',
@@ -23,6 +28,5 @@ export enum APIEndpoints {
   TV_GENRES = '/genre/tv/list',
   SEARCH_MULTI = '/search/multi',
 }
-
 
 export default api;
