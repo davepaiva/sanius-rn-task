@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import {StyleSheet, TextInput, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 interface SearchBarProps {
@@ -7,6 +7,7 @@ interface SearchBarProps {
   placeholder?: string;
   searchQuery: string;
   toggleResultMode: (isResultMode: boolean) => void;
+  autoFocus?: boolean;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
@@ -14,8 +15,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
   placeholder = 'TV shows, movies and more',
   searchQuery = '',
   toggleResultMode,
+  autoFocus = false,
 }) => {
-
   const handleSearch = (text: string) => {
     if (onSearch) {
       onSearch(text);
@@ -23,11 +24,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
   };
 
   const handleTurnOnSearchResultMode = () => {
-    if(searchQuery.length > 0){
+    if (searchQuery.length > 0) {
       toggleResultMode(true);
     }
   };
-
 
   return (
     <View style={styles.container}>
@@ -39,6 +39,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         placeholderTextColor="#666"
         value={searchQuery}
         onChangeText={handleSearch}
+        autoFocus={autoFocus}
         onSubmitEditing={handleTurnOnSearchResultMode}
       />
       {searchQuery.length > 0 && (

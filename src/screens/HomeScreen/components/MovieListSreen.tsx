@@ -25,24 +25,17 @@ const MovieListScreen = ({
   loading,
   onLoadMore,
 }: MovieListScreenProps) => {
-  const [isSearchMode, setIsSearchMode] = useState(false);
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const isFocusedRef = useRef(useIsFocused());
   const isFocused = useIsFocused();
-
-  const searchModeRef = useRef(false);
-
-  useEffect(() => {
-    searchModeRef.current = isSearchMode;
-  }, [isSearchMode]);
 
   useEffect(() => {
     isFocusedRef.current = isFocused;
   }, [isFocused]);
 
   const handleToggleSearchMode = () => {
-    setIsSearchMode(!isSearchMode);
+    navigation.navigate('Search');
   };
 
   const handleLoadMore = useCallback(() => {
@@ -87,14 +80,6 @@ const MovieListScreen = ({
     );
   };
 
-  if (isSearchMode) {
-    return (
-      <SearchView
-        turnOffSearchMode={handleToggleSearchMode}
-        isSearchMode={isSearchMode}
-      />
-    );
-  }
   return (
     <Screen
       showNavbar

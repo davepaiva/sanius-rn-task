@@ -5,8 +5,9 @@ import {
 } from '@react-navigation/native-stack';
 import MovieDetailsScreen from '@screens/MovieDetailsScreen';
 import HomeScreen from '@screens/HomeScreen';
-
+import SearchScreen from '@screens/Search';
 export type RootStackParamList = {
+  Search: undefined;
   Home: undefined;
   MovieDetails: {
     id: number;
@@ -41,6 +42,11 @@ const RootStackNavigator = () => {
         <RootStack.Screen
           name={'MovieDetails'}
           component={MovieDetailsScreen}
+          options={{headerShown: false}}
+        />
+        <RootStack.Screen
+          name={'Search'}
+          component={SearchScreen}
           options={{headerShown: false}}
         />
       </RootStack.Navigator>
