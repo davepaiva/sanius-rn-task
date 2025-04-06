@@ -1,14 +1,45 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import BottomTabBar from '@components/BottomTabBar';
-import WatchScreen from '@screens/WatchScreen';
+import MovieListScreen from '@screens/HomeScreen/components/MovieListSreen';
+import withMovieList from '@hoc/WithMovieList';
+import getNowPlayingMovies from '@api/getNowPlayingMovies';
+import getPopularMovies from '@api/getPopularMovies';
+import getTopRatedMovies from '@api/getTopRatedMovies';
+import getUpcomingMovies from '@api/getUpcomingMovies';
 
 export type HomeBottomTabBarParamList = {
-  Dashboard: undefined;
-  Watch: undefined;
-  Media: undefined;
-  More: undefined;
+  NowPlaying: undefined;
+  Popular: undefined;
+  TopRated: undefined;
+  Upcoming: undefined;
 };
+
+const NowPlayingMoviesScreen = withMovieList<HomeBottomTabBarParamList>(
+  MovieListScreen,
+)({
+  category: 'now_playing',
+  fetchFunction: getNowPlayingMovies,
+}) as React.ComponentType<object>;
+
+const PopularMoviesScreen = withMovieList<HomeBottomTabBarParamList>(
+  MovieListScreen,
+)({
+  category: 'popular',
+  fetchFunction: getPopularMovies,
+}) as React.ComponentType<object>;
+
+const TopRatedMoviesScreen = withMovieList(MovieListScreen)({
+  category: 'top_rated',
+  fetchFunction: getTopRatedMovies,
+});
+
+const UpcomingMoviesScreen = withMovieList<HomeBottomTabBarParamList>(
+  MovieListScreen,
+)({
+  category: 'upcoming',
+  fetchFunction: getUpcomingMovies,
+}) as React.ComponentType<object>;
 
 const BottomTabNavigator =
   createBottomTabNavigator<HomeBottomTabBarParamList>();
@@ -16,13 +47,28 @@ const BottomTabNavigator =
 const HomeTabNavigator = () => {
   return (
     <BottomTabNavigator.Navigator
-      initialRouteName="Watch"
+      initialRouteName="NowPlaying"
       tabBar={BottomTabBar}
       screenOptions={{
         headerShown: false,
         tabBarStyle: {backgroundColor: 'black'},
       }}>
-      <BottomTabNavigator.Screen name="Watch" component={WatchScreen} />
+      <BottomTabNavigator.Screen
+        name="NowPlaying"
+        component={NowPlayingMoviesScreen}
+      />
+      <BottomTabNavigator.Screen
+        name="Popular"
+        component={PopularMoviesScreen}
+      />
+      <BottomTabNavigator.Screen
+        name="TopRated"
+        component={TopRatedMoviesScreen}
+      />
+      <BottomTabNavigator.Screen
+        name="Upcoming"
+        component={UpcomingMoviesScreen}
+      />
     </BottomTabNavigator.Navigator>
   );
 };

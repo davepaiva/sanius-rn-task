@@ -3,8 +3,8 @@ import {
   createNativeStackNavigator,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
-import HomeTabNavigator from '@navigators/HomeBottomTabBar';
 import MovieDetailsScreen from '@screens/MovieDetailsScreen';
+import HomeScreen from '@screens/HomeScreen';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -55,7 +55,7 @@ const RootStackNavigator = () => {
       <RootStack.Navigator>
         <RootStack.Screen
           name={'Home'}
-          component={HomeTabNavigator}
+          component={HomeScreen}
           options={{headerShown: false}}
         />
         <RootStack.Screen
