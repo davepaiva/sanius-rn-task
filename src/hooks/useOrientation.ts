@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Dimensions } from 'react-native';
+import {useState, useEffect} from 'react';
+import {Dimensions} from 'react-native';
 
 export const useOrientation = () => {
   const [isLandscape, setIsLandscape] = useState(
-    Dimensions.get('window').width > Dimensions.get('window').height
+    Dimensions.get('window').width > Dimensions.get('window').height,
   );
 
   useEffect(() => {
@@ -12,7 +12,10 @@ export const useOrientation = () => {
       setIsLandscape(dimension.width > dimension.height);
     };
 
-    const subscription = Dimensions.addEventListener('change', updateOrientation);
+    const subscription = Dimensions.addEventListener(
+      'change',
+      updateOrientation,
+    );
 
     return () => {
       subscription.remove();
@@ -20,4 +23,4 @@ export const useOrientation = () => {
   }, []);
 
   return isLandscape;
-}; 
+};

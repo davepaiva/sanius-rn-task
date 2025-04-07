@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from '@react-native-vector-icons/ionicons';
 
 interface SearchBarProps {
   onSearch?: (query: string) => void;

@@ -77,7 +77,6 @@ const MovieDetailsScreen: React.FC<MovieDetailsProps> = ({route}) => {
       horizontalPadding={0}
       showNavbar
       title="Movie details"
-      centerTitle={false}
       rightIcon={{
         name: isSaved ? 'bookmark' : 'bookmark-outline',
         onPress: handleSaveMovie,

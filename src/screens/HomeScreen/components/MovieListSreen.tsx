@@ -85,7 +85,6 @@ const MovieListScreen = ({
       showNavbar
       title={getMovieListScreenTitle(category)}
       showBackButton={false}
-      centerTitle={false}
       rightIcon={
         category !== 'saved_movies'
           ? {
