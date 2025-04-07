@@ -96,6 +96,7 @@ const MovieListScreen = ({
       }>
       <View style={styles.container}>
         <FlatList
+          style={styles.flatList}
           data={movies}
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
@@ -116,6 +117,9 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     alignItems: 'center',
+  },
+  flatList: {
+    width: '100%',
   },
   footerLoader: {
     paddingVertical: 20,
