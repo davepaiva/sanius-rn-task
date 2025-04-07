@@ -1,4 +1,4 @@
-const { mergeConfig, getDefaultConfig } = require('@react-native/metro-config');
+const {mergeConfig, getDefaultConfig} = require('@react-native/metro-config');
 
 /**
  * Metro configuration
@@ -18,6 +18,7 @@ const config = {
       '@styles': `${__dirname}/src/styles`,
       '@api': `${__dirname}/src/api`,
       '@hooks': `${__dirname}/src/hooks`,
+      '@hoc': `${__dirname}/src/hoc`,
     },
   },
   watchFolders: [__dirname],

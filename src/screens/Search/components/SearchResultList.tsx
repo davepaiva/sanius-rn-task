@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, View, Image, Pressable } from 'react-native';
-import { GenreList, SearchResult } from '@custom_types/api/tmdb';
+import React from 'react';
+import {FlatList, StyleSheet, View, Image, Pressable} from 'react-native';
+import {SearchResult} from '@custom_types/api/tmdb';
 import Text from '@components/Text';
-import { renderTMDBImage } from '@app_utils/helperfuncs';
+import {renderTMDBImage} from '@app_utils/helperfuncs';
 import palette from '@styles/palette';
 import ActivityIndicator from '@components/ActivityIndicator';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import asyncStorageKeys from '@app_utils/asynStorageKeys';
-
+import {format} from 'date-fns';
 interface SearchResultListProps {
   data: SearchResult[];
   onItemPress: (item: SearchResult) => void;
@@ -17,18 +14,14 @@ interface SearchResultListProps {
   isLoadingMore?: boolean;
 }
 
-const SearchResultList: React.FC<SearchResultListProps> = ({ data, onItemPress, isResultMode, onLoadMore, isLoadingMore = false }) => {
-  const [genres, setGenres] = useState<GenreList[]>([]);
-
-  useEffect(() => {
-    const fetchGenres = async () => {
-      const cachedGenres = await AsyncStorage.getItem(asyncStorageKeys.movieGenres);
-      setGenres(JSON.parse(cachedGenres || '[]'));
-    };
-    fetchGenres();
-  }, []);
-
-  const renderItem = ({ item, index }: { item: SearchResult, index: number }) => {
+const SearchResultList: React.FC<SearchResultListProps> = ({
+  data,
+  onItemPress,
+  isResultMode,
+  onLoadMore,
+  isLoadingMore = false,
+}) => {
+  const renderItem = ({item, index}: {item: SearchResult; index: number}) => {
     const title = item.title || item.name || '';
     const imageUrl = renderTMDBImage(item.backdrop_path || '', 500);
 
@@ -36,37 +29,37 @@ const SearchResultList: React.FC<SearchResultListProps> = ({ data, onItemPress, 
       onItemPress?.(item);
     };
 
-
     return (
       <Pressable
-        style={[styles.itemContainer, index === 0 && styles.firstItemContainer, index === data.length - 1 && styles.lastItemContainer]}
-        onPress={handleItemPress}
-      >
-        {
-            imageUrl ? (
-                <Image
-                    source={{ uri: imageUrl }}
-                    style={styles.poster}
-                    resizeMode="cover"
-                />
-            ) : (
-                <View style={[styles.poster, styles.posterPlaceholder]} />
-            )
-        }
+        style={[
+          styles.itemContainer,
+          index === 0 && styles.firstItemContainer,
+          index === data.length - 1 && styles.lastItemContainer,
+        ]}
+        onPress={handleItemPress}>
+        {imageUrl ? (
+          <Image
+            source={{uri: imageUrl}}
+            style={styles.poster}
+            resizeMode="cover"
+          />
+        ) : (
+          <View style={[styles.poster, styles.posterPlaceholder]} />
+        )}
         <View style={styles.contentContainer}>
           <Text
             variant="primary"
             size="large"
             weight="SemiBold"
             numberOfLines={1}
-            style={styles.text}
-          >
+            style={styles.text}>
             {title}
           </Text>
-          <Text variant='secondary' size="small" weight="Medium">{genres.find(genre => genre.id === item.genre_ids[0])?.name}</Text>
-        </View>
-        <View style={styles.dotsContainer}>
-          <Icon name="dots-horizontal" size={24} color={palette.primary} />
+          {item.release_date && (
+            <Text variant="secondary" size="small" weight="Medium">
+              {format(new Date(item?.release_date), 'MMM d, yyyy')}
+            </Text>
+          )}
         </View>
       </Pressable>
     );
@@ -77,12 +70,14 @@ const SearchResultList: React.FC<SearchResultListProps> = ({ data, onItemPress, 
   };
 
   const renderListHeader = () => {
-    if(isResultMode){
-        return(<></>);
+    if (isResultMode) {
+      return <></>;
     }
     return (
       <View style={styles.listHeader}>
-        <Text variant="primary" size="small" weight="Medium">Top Results</Text>
+        <Text variant="primary" size="small" weight="Medium">
+          Top Results
+        </Text>
         <View style={styles.listHederDivider} />
       </View>
     );
@@ -99,10 +94,10 @@ const SearchResultList: React.FC<SearchResultListProps> = ({ data, onItemPress, 
 
   return (
     <FlatList
-     ListHeaderComponent={renderListHeader}
+      ListHeaderComponent={renderListHeader}
       data={data}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id.toString()}
+      keyExtractor={item => item.id.toString()}
       contentContainerStyle={styles.listContainer}
       showsVerticalScrollIndicator={false}
       ItemSeparatorComponent={renderSeparator}
@@ -116,10 +111,10 @@ const SearchResultList: React.FC<SearchResultListProps> = ({ data, onItemPress, 
 };
 
 const styles = StyleSheet.create({
-    listHeader:{
+  listHeader: {
     marginTop: 30,
   },
-  listHederDivider:{
+  listHederDivider: {
     backgroundColor: 'rgba(0,0,0,0.1)',
     height: 1,
     width: '100%',

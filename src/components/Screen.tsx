@@ -1,10 +1,16 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  StatusBar,
+  Platform,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import Text from './Text';
 import Icon from 'react-native-vector-icons/Ionicons';
 import palette from '@styles/palette';
-
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 interface ScreenProps {
   children: React.ReactNode;
   showNavbar?: boolean;
@@ -12,7 +18,6 @@ interface ScreenProps {
   subtitle?: string;
   horizontalPadding?: number;
   centerTitle?: boolean;
-  transparentNavbar?: boolean;
   showBackButton?: boolean;
   rightIcon?: {
     name: string;
@@ -25,26 +30,21 @@ const Screen: React.FC<ScreenProps> = ({
   showNavbar = false,
   title,
   subtitle,
-  horizontalPadding = 20,
+  horizontalPadding = 16,
   centerTitle = true,
-  transparentNavbar = false,
   showBackButton = true,
   rightIcon,
 }) => {
   const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
 
   const renderNavBarContent = () => (
     <>
       {showBackButton ? (
         <TouchableOpacity
           onPress={() => navigation.goBack()}
-          style={styles.backButton}
-        >
-          <Icon
-            name="chevron-back"
-            size={20}
-            color={transparentNavbar ? '#FFFFFF' : '#000000'}
-          />
+          style={styles.backButton}>
+          <Icon name="chevron-back" size={20} color={'#000000'} />
         </TouchableOpacity>
       ) : (
         <View style={styles.backButton} />
@@ -55,26 +55,12 @@ const Screen: React.FC<ScreenProps> = ({
           styles.titleContainer,
           centerTitle ? styles.centerTitle : styles.leftTitle,
           !showBackButton && styles.titleWithoutBack,
-        ]}
-      >
-        <Text
-          size="large"
-          weight='Medium'
-          style={[
-            { color: transparentNavbar ? '#FFFFFF' : '#000000' },
-          ]}
-        >
+        ]}>
+        <Text size="large" weight="Medium" style={styles.title}>
           {title}
         </Text>
         {subtitle && (
-          <Text
-            size="small"
-            weight="Medium"
-            style={[
-              {color: transparentNavbar ? '#FFFFFF99' : palette.primary},
-              styles.subtitle,
-            ]}
-          >
+          <Text size="small" weight="Medium" style={styles.subtitle}>
             {subtitle}
           </Text>
         )}
@@ -83,13 +69,8 @@ const Screen: React.FC<ScreenProps> = ({
       {rightIcon ? (
         <TouchableOpacity
           onPress={rightIcon.onPress}
-          style={styles.rightButton}
-        >
-          <Icon
-            name={rightIcon.name}
-            size={18.9}
-            color={transparentNavbar ? '#FFFFFF' : '#000000'}
-          />
+          style={styles.rightButton}>
+          <Icon name={rightIcon.name} size={18.9} color={'#000000'} />
         </TouchableOpacity>
       ) : (
         <View style={styles.rightButton} />
@@ -99,37 +80,21 @@ const Screen: React.FC<ScreenProps> = ({
 
   return (
     <View style={styles.container}>
-      <StatusBar
-        barStyle={transparentNavbar ? 'light-content' : 'dark-content'}
-        backgroundColor="transparent"
-        translucent
-      />
-      {!transparentNavbar && showNavbar && (
-        <View
-          style={[
-            styles.navbar,
-            styles.solidNavbar,
-          ]}
-        >
-          {renderNavBarContent()}
-        </View>
+      <StatusBar barStyle={'dark-content'} backgroundColor="#FFFFFF" />
+      {Platform.OS === 'ios' && (
+        <View style={[styles.statusBar, {height: insets.top}]} />
+      )}
+      {showNavbar && (
+        <View style={[styles.navbar]}>{renderNavBarContent()}</View>
       )}
 
-      <View style={[styles.contentContainer, { paddingHorizontal: horizontalPadding }]}>
+      <View
+        style={[
+          styles.contentContainer,
+          {paddingHorizontal: horizontalPadding},
+        ]}>
         {children}
       </View>
-
-      {transparentNavbar && showNavbar && (
-        <View
-          style={[
-            styles.navbar,
-            styles.transparentNavbar,
-            styles.absoluteNavbar,
-          ]}
-        >
-          {renderNavBarContent()}
-        </View>
-      )}
     </View>
   );
 };
@@ -140,25 +105,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   navbar: {
-    minHeight: 87,
-    paddingTop: StatusBar.currentHeight,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 20,
-  },
-  absoluteNavbar: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 1,
-  },
-  transparentNavbar: {
-    backgroundColor: 'transparent',
-  },
-  solidNavbar: {
+    minHeight: 64,
     backgroundColor: '#FFFFFF',
   },
+
   backButton: {
     height: 30,
     width: 30,
@@ -188,8 +141,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: palette.surface_primary,
   },
+  title: {
+    color: '#000000',
+  },
   subtitle: {
     marginTop: 6,
+    color: palette.primary,
+  },
+  statusBar: {
+    backgroundColor: '#FFFFFF',
   },
 });
 
