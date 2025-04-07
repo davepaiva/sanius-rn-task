@@ -38,6 +38,7 @@ const Screen: React.FC<ScreenProps> = ({
     <>
       {showBackButton ? (
         <TouchableOpacity
+          testID="back-button"
           onPress={() => navigation.goBack()}
           style={styles.backButton}>
           <Icon name="chevron-back" size={20} color={'#000000'} />
@@ -59,6 +60,7 @@ const Screen: React.FC<ScreenProps> = ({
 
       {rightIcon ? (
         <TouchableOpacity
+          testID="right-icon"
           onPress={rightIcon.onPress}
           style={styles.rightButton}>
           <Icon name={rightIcon.name as any} size={18.9} color={'#000000'} />

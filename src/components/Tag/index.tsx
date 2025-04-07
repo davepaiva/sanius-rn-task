@@ -11,8 +11,11 @@ interface TagProps {
 
 const Tag: React.FC<TagProps> = ({label, color = palette.primary, style}) => {
   return (
-    <View style={[styles.container, {backgroundColor: color}, style]}>
+    <View
+      testID="tag-container"
+      style={[styles.container, {backgroundColor: color}, style]}>
       <Text
+        testID="tag-text"
         variant={color === palette.surface_primary ? 'primary' : 'light'}
         size="small"
         weight="SemiBold"

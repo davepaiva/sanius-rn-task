@@ -4,6 +4,7 @@ import {ImageBackground, StyleSheet, View, Pressable} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Text from '@components/Text';
 import {format} from 'date-fns';
+
 interface MovieListItemProps {
   title: string;
   posterUrl: string;
@@ -11,6 +12,7 @@ interface MovieListItemProps {
   isFirstItem: boolean;
   releaseDate: string;
   voteAverage: number;
+  testID?: string;
 }
 
 const BORDER_RADIUS = 20;
@@ -22,10 +24,11 @@ const MovieListItem: React.FC<MovieListItemProps> = ({
   isFirstItem,
   releaseDate,
   voteAverage,
+  testID,
 }) => {
-  console.log(`img-`, renderTMDBImage(posterUrl, 500));
   return (
     <Pressable
+      testID={testID}
       onPress={onPress}
       style={[styles.card, isFirstItem && styles.firstItem]}>
       <ImageBackground
