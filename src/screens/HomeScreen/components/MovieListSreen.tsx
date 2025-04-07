@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback, useRef} from 'react';
+import React, {useEffect, useCallback, useRef} from 'react';
 import {View, StyleSheet, FlatList} from 'react-native';
 import Text from '@components/Text';
 import MovieListItem from './MovieListItem';
@@ -7,7 +7,6 @@ import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@navigators/index';
 import Screen from '@components/Screen';
-import SearchView from './SearchView';
 import ActivityIndicator from '@components/ActivityIndicator';
 import {movieListCategory} from '@custom_types/movieListScreen';
 import {getMovieListScreenTitle} from '@app_utils/helperfuncs';
@@ -57,13 +56,14 @@ const MovieListScreen = ({
     const handleMoviePress = () => {
       navigation.navigate('MovieDetails', {
         title: item.title,
-        posterUrl: item.poster_path,
-        description: item.overview,
+        poster_path: item.poster_path,
+        overview: item.overview,
         genre_ids: item.genre_ids,
         video: item.video,
         id: item.id,
-        releaseDate: item.release_date,
-        voteAverage: item.vote_average,
+        release_date: item.release_date,
+        vote_average: item.vote_average,
+        backdrop_path: item.backdrop_path,
       });
     };
 
@@ -86,7 +86,14 @@ const MovieListScreen = ({
       title={getMovieListScreenTitle(category)}
       showBackButton={false}
       centerTitle={false}
-      rightIcon={{name: 'search', onPress: handleToggleSearchMode}}>
+      rightIcon={
+        category !== 'saved_movies'
+          ? {
+              name: 'search',
+              onPress: handleToggleSearchMode,
+            }
+          : undefined
+      }>
       <View style={styles.container}>
         <FlatList
           data={movies}

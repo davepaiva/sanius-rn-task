@@ -13,6 +13,7 @@ export type HomeBottomTabBarParamList = {
   Popular: undefined;
   TopRated: undefined;
   Upcoming: undefined;
+  SavedMovies: undefined;
 };
 
 const NowPlayingMoviesScreen = withMovieList<HomeBottomTabBarParamList>(
@@ -41,6 +42,12 @@ const UpcomingMoviesScreen = withMovieList<HomeBottomTabBarParamList>(
   fetchFunction: getUpcomingMovies,
 }) as React.ComponentType<object>;
 
+const SavedMoviesScreen = withMovieList<HomeBottomTabBarParamList>(
+  MovieListScreen,
+)({
+  category: 'saved_movies',
+}) as React.ComponentType<object>;
+
 const BottomTabNavigator =
   createBottomTabNavigator<HomeBottomTabBarParamList>();
 
@@ -52,6 +59,7 @@ const HomeTabNavigator = () => {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {backgroundColor: 'black'},
+        tabBarShowLabel: false,
       }}>
       <BottomTabNavigator.Screen
         name="NowPlaying"
@@ -68,6 +76,10 @@ const HomeTabNavigator = () => {
       <BottomTabNavigator.Screen
         name="Upcoming"
         component={UpcomingMoviesScreen}
+      />
+      <BottomTabNavigator.Screen
+        name="SavedMovies"
+        component={SavedMoviesScreen}
       />
     </BottomTabNavigator.Navigator>
   );

@@ -12,6 +12,8 @@ import asyncStorageKeys from '@app_utils/asynStorageKeys';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useOrientation} from '@hooks/useOrientation';
 import {format} from 'date-fns';
+import {saveMovie, deleteSavedMovie, isMovieSaved} from '@app_utils/sqlite';
+
 type Genre = {
   id: number;
   name: string;
@@ -27,8 +29,8 @@ const GENRES: Record<string, string> = {
 
 const MovieDetailsScreen: React.FC<MovieDetailsProps> = ({route}) => {
   const [genres, setGenres] = useState<Genre[]>([]);
+  const [isSaved, setIsSaved] = useState(false);
   const isLandscape = useOrientation();
-
   useEffect(() => {
     const loadGenres = async () => {
       const cachedGenres = await AsyncStorage.getItem(
@@ -40,13 +42,46 @@ const MovieDetailsScreen: React.FC<MovieDetailsProps> = ({route}) => {
     loadGenres();
   }, []);
 
+  useEffect(() => {
+    const checkSavedMovie = async () => {
+      const isSavedInDb = await isMovieSaved(route.params.id);
+      setIsSaved(isSavedInDb);
+    };
+    checkSavedMovie();
+  }, [route.params.id]);
+
+  const handleSaveMovie = async () => {
+    if (isSaved) {
+      deleteSavedMovie(route.params.id)
+        .then(() => {
+          console.log('Movie deleted from database');
+          setIsSaved(false);
+        })
+        .catch(error => {
+          console.error('Error deleting movie from database', error);
+        });
+    } else {
+      saveMovie(route.params)
+        .then(() => {
+          console.log('Movie saved to database');
+          setIsSaved(true);
+        })
+        .catch(error => {
+          console.error('Error saving movie to database', error);
+        });
+    }
+  };
+
   return (
     <Screen
       horizontalPadding={0}
       showNavbar
       title="Movie details"
       centerTitle={false}
-      rightIcon={{name: 'bookmark-outline', onPress: () => {}}}>
+      rightIcon={{
+        name: isSaved ? 'bookmark' : 'bookmark-outline',
+        onPress: handleSaveMovie,
+      }}>
       <ScrollView>
         <View
           style={[styles.container, isLandscape && styles.landscapeContainer]}>
@@ -56,7 +91,9 @@ const MovieDetailsScreen: React.FC<MovieDetailsProps> = ({route}) => {
               isLandscape && styles.landscapeHeaderContainer,
             ]}>
             <ImageBackground
-              source={{uri: renderTMDBImage(route.params.posterUrl, 500) || ''}}
+              source={{
+                uri: renderTMDBImage(route.params.poster_path, 500) || '',
+              }}
               style={[
                 styles.posterImage,
                 isLandscape && styles.landscapePosterImage,
@@ -72,7 +109,7 @@ const MovieDetailsScreen: React.FC<MovieDetailsProps> = ({route}) => {
                   <View style={styles.infoContainer}>
                     <Text variant="light" size="small" weight="Regular">
                       {format(
-                        new Date(route.params.releaseDate),
+                        new Date(route.params.release_date),
                         'MMM d, yyyy',
                       )}
                     </Text>
@@ -80,7 +117,7 @@ const MovieDetailsScreen: React.FC<MovieDetailsProps> = ({route}) => {
                       |
                     </Text>
                     <Text variant="light" size="small" weight="Regular">
-                      Rating: {route.params.voteAverage.toFixed(1)}
+                      Rating: {route.params.vote_average.toFixed(1)}
                     </Text>
                   </View>
                 </View>
@@ -117,7 +154,7 @@ const MovieDetailsScreen: React.FC<MovieDetailsProps> = ({route}) => {
             <View style={[styles.divider, globalStyles.divider]} />
             <Text variant="primary">Overview</Text>
             <View style={styles.descriptionContainer}>
-              <Text variant="secondary">{route.params.description}</Text>
+              <Text variant="secondary">{route.params.overview}</Text>
             </View>
           </ScrollView>
         </View>

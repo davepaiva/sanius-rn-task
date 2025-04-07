@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import asyncStorageKeys from '@app_utils/asynStorageKeys';
 import getTvGenreList from '@api/getTvGenreList';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-
+import {connectToDatabase, createTables} from '@app_utils/sqlite';
 // Create a client
 const queryClient = new QueryClient();
 
@@ -27,6 +27,14 @@ export default function App() {
       }
     };
     fetchGenreList();
+  }, []);
+
+  useEffect(() => {
+    const createSavedMoviesTable = async () => {
+      await connectToDatabase();
+      await createTables();
+    };
+    createSavedMoviesTable();
   }, []);
 
   return (

@@ -23,6 +23,7 @@ const MovieListItem: React.FC<MovieListItemProps> = ({
   releaseDate,
   voteAverage,
 }) => {
+  console.log(`img-`, renderTMDBImage(posterUrl, 500));
   return (
     <Pressable
       onPress={onPress}
@@ -48,7 +49,7 @@ const MovieListItem: React.FC<MovieListItemProps> = ({
                 {format(new Date(releaseDate), 'MMM d, yyyy')}
               </Text>
               <Text variant="light" size="x_small" weight="Medium">
-                Rating {voteAverage.toFixed(1)}
+                Rating {voteAverage?.toFixed(1)}
               </Text>
             </View>
           </View>

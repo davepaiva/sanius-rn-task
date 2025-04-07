@@ -1,4 +1,7 @@
 {
   "name": "mymovies",
-  "displayName": "mymovies"
+  "displayName": "mymovies",
+  "plugins": [
+    "expo-sqlite"
+  ]
 }

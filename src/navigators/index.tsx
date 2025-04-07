@@ -12,12 +12,13 @@ export type RootStackParamList = {
   MovieDetails: {
     id: number;
     title: string;
-    posterUrl: string;
-    description: string;
+    poster_path: string;
+    overview: string;
     genre_ids: number[];
     video: boolean;
-    releaseDate: string;
-    voteAverage: number;
+    release_date: string;
+    vote_average: number;
+    backdrop_path: string;
   };
 };
 

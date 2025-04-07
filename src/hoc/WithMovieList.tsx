@@ -3,14 +3,27 @@ import React, {useCallback} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {useInfiniteQuery} from '@tanstack/react-query';
 import {Movie} from '@custom_types/api/tmdb';
+import {getSavedMovies} from '@app_utils/sqlite';
+import {useFocusEffect} from '@react-navigation/native';
 
 interface WithMovieListProps {
-  category: 'now_playing' | 'popular' | 'top_rated' | 'upcoming';
-  fetchFunction: (page: number) => Promise<any>;
+  category:
+    | 'now_playing'
+    | 'popular'
+    | 'top_rated'
+    | 'upcoming'
+    | 'saved_movies';
+  fetchFunction?: (page: number) => Promise<any>;
+  // db?: SQLiteDatabase;
 }
 
 interface MovieListScreenProps {
-  category: 'now_playing' | 'popular' | 'top_rated' | 'upcoming';
+  category:
+    | 'now_playing'
+    | 'popular'
+    | 'top_rated'
+    | 'upcoming'
+    | 'saved_movies';
   movies: Movie[];
   loading: boolean;
   onLoadMore?: () => void;
@@ -21,13 +34,42 @@ function withMovieList<P extends object>(
 ) {
   return (config: WithMovieListProps): React.ComponentType<P> => {
     return function WithMovieListComponent(props: P) {
-      const {data, isLoading, fetchNextPage, hasNextPage} = useInfiniteQuery({
-        queryKey: ['movies', config.category],
-        queryFn: ({pageParam = 1}) => config.fetchFunction(pageParam),
-        getNextPageParam: lastPage =>
-          lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined,
-        initialPageParam: 1,
-      });
+      const {data, isLoading, fetchNextPage, hasNextPage, refetch} =
+        useInfiniteQuery({
+          queryKey: ['movies', config.category],
+          queryFn: async ({pageParam = 1}) => {
+            if (config.category === 'saved_movies') {
+              const savedMovies = await getSavedMovies();
+              return {
+                results: savedMovies,
+                page: 1,
+                total_pages: 1,
+              };
+            }
+            if (!config.fetchFunction) {
+              throw new Error(
+                'fetchFunction is required for non-saved movies categories',
+              );
+            }
+            return config.fetchFunction(pageParam);
+          },
+          getNextPageParam: lastPage =>
+            config.category === 'saved_movies'
+              ? undefined
+              : lastPage.page < lastPage.total_pages
+              ? lastPage.page + 1
+              : undefined,
+          initialPageParam: 1,
+        });
+
+      // Add focus effect to refetch saved movies
+      useFocusEffect(
+        useCallback(() => {
+          if (config.category === 'saved_movies') {
+            refetch();
+          }
+        }, [refetch]),
+      );
 
       const allMovies = data?.pages.flatMap(page => page.results) ?? [];
 

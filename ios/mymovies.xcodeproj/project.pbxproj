@@ -22,6 +22,7 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		82F8201D8685497AA337171D /* Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2AE72F1A8B94E5C90CF8772 /* Poppins-SemiBoldItalic.ttf */; };
 		93094A17262A49F693B67E08 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 898E53B0FC354B1B989BCECC /* Poppins-Medium.ttf */; };
+		99C013AF4A62010F392EF8FD /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72685B976A3E01DA0014B06 /* ExpoModulesProvider.swift */; };
 		9D0AF03C228746A88FE66F14 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0CB5199B58F4530BD37E099 /* Poppins-Regular.ttf */; };
 		B6D6F6DFEDEC454EAC127B6B /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA31BDB428844021BF09EB4E /* Poppins-MediumItalic.ttf */; };
 		BE91F2C29FF6403189AF1A81 /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3DBCCB17C1D44FC87478580 /* Poppins-ExtraLight.ttf */; };
@@ -61,6 +62,7 @@
 		E3DBCCB17C1D44FC87478580 /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraLight.ttf"; path = "../assets/fonts/Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
 		E75DAFD2C1A84B64BC4549EF /* Poppins-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Thin.ttf"; path = "../assets/fonts/Poppins-Thin.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F72685B976A3E01DA0014B06 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-mymovies/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,14 @@
 			name = mymovies;
 			sourceTree = "<group>";
 		};
+		28FEF84C8F0435AB6C16240A /* mymovies */ = {
+			isa = PBXGroup;
+			children = (
+				F72685B976A3E01DA0014B06 /* ExpoModulesProvider.swift */,
+			);
+			name = mymovies;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +130,14 @@
 				5DCACB8F33CDC322A6C60F78 /* libPods-mymovies.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		721F14585416C4D8FD5B3DDC /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				28FEF84C8F0435AB6C16240A /* mymovies */,
+			);
+			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -138,6 +156,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
 				080959605ED6484B89BE365C /* Resources */,
+				721F14585416C4D8FD5B3DDC /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -169,6 +188,7 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "mymovies" */;
 			buildPhases = (
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				4D09B87EFF6842EE9742F839 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -281,6 +301,25 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-mymovies/Pods-mymovies-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		4D09B87EFF6842EE9742F839 /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-mymovies/expo-configure-project.sh\"\n";
+		};
 		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -328,6 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
+				99C013AF4A62010F392EF8FD /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +394,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = mymovies;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -381,6 +422,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = mymovies;
 				SWIFT_VERSION = 5.0;
@@ -464,6 +506,7 @@
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_VERSION = 5.0;
 				USE_HERMES = true;
 			};
 			name = Debug;
@@ -535,6 +578,7 @@
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
 				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
 			};

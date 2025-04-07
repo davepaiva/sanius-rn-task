@@ -31,6 +31,8 @@ const getMovieListScreenTitle = (category: movieListCategory) => {
       return 'Top rated';
     case 'upcoming':
       return 'Upcoming';
+    case 'saved_movies':
+      return 'Saved Movies';
   }
 };
 
