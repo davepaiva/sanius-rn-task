@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
   },
   flatList: {
     width: '100%',
+    paddingBottom: 75,
   },
   footerLoader: {
     paddingVertical: 20,
