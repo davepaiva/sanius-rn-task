@@ -5,7 +5,7 @@ const DB_NAME = 'mymovies.db';
 
 export const connectToDatabase = async (): Promise<SQLite.SQLiteDatabase> => {
   try {
-    return await SQLite.openDatabaseAsync(DB_NAME);
+    return await SQLite.openDatabaseAsync(DB_NAME, {useNewConnection: true});
   } catch (error) {
     console.error('Database connection error:', error);
     throw Error('Could not connect to database');
