@@ -18,7 +18,6 @@ export default function App() {
         const movieGenreList = await getMovieGenreList();
         const tvGenreList = await getTvGenreList();
         const genreList = [...movieGenreList.genres, ...tvGenreList.genres];
-        console.log('genreList', genreList);
         AsyncStorage.setItem(
           asyncStorageKeys.movieGenres,
           JSON.stringify(genreList),

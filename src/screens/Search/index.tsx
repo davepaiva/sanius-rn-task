@@ -7,7 +7,7 @@ import ActivityIndicator from '@components/ActivityIndicator';
 import SearchResultList from './components/SearchResultList';
 import palette from '@styles/palette';
 import Text from '@components/Text';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from '@react-native-vector-icons/material-design-icons';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '@navigators/index';
@@ -80,13 +80,14 @@ const SearchScreen: React.FC<SearchViewProps> = ({}) => {
   const handleOnSearchResultItemPress = (item: SearchResult) => {
     navigation.navigate('MovieDetails', {
       title: item.title || '',
-      posterUrl: item.poster_path || '',
-      description: item.overview,
+      poster_path: item.poster_path || '',
+      overview: item.overview,
       genre_ids: item.genre_ids,
       video: item.video || false,
       id: item.id,
-      releaseDate: item.release_date || '',
-      voteAverage: item.vote_average,
+      release_date: item.release_date || '',
+      vote_average: item.vote_average,
+      backdrop_path: item.backdrop_path || '',
     });
   };
 

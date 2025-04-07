@@ -6,21 +6,6 @@ const renderTMDBImage = (endpoint: string, size?: number) => {
     : null;
 };
 
-const debounce = <F extends (...args: any[]) => any>(
-  func: F,
-  waitFor: number,
-) => {
-  let timeout: NodeJS.Timeout | null = null;
-
-  return (...args: Parameters<F>): void => {
-    if (timeout) {
-      clearTimeout(timeout);
-    }
-
-    timeout = setTimeout(() => func(...args), waitFor);
-  };
-};
-
 const getMovieListScreenTitle = (category: movieListCategory) => {
   switch (category) {
     case 'now_playing':
@@ -36,4 +21,4 @@ const getMovieListScreenTitle = (category: movieListCategory) => {
   }
 };
 
-export {renderTMDBImage, debounce, getMovieListScreenTitle};
+export {renderTMDBImage, getMovieListScreenTitle};

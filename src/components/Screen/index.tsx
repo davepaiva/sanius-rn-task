@@ -7,17 +7,15 @@ import {
   Platform,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import Text from './Text';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Text from '../Text';
+import Icon from '@react-native-vector-icons/ionicons';
 import palette from '@styles/palette';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 interface ScreenProps {
   children: React.ReactNode;
   showNavbar?: boolean;
   title?: string;
-  subtitle?: string;
   horizontalPadding?: number;
-  centerTitle?: boolean;
   showBackButton?: boolean;
   rightIcon?: {
     name: string;
@@ -29,9 +27,7 @@ const Screen: React.FC<ScreenProps> = ({
   children,
   showNavbar = false,
   title,
-  subtitle,
   horizontalPadding = 16,
-  centerTitle = true,
   showBackButton = true,
   rightIcon,
 }) => {
@@ -42,6 +38,7 @@ const Screen: React.FC<ScreenProps> = ({
     <>
       {showBackButton ? (
         <TouchableOpacity
+          testID="back-button"
           onPress={() => navigation.goBack()}
           style={styles.backButton}>
           <Icon name="chevron-back" size={20} color={'#000000'} />
@@ -53,24 +50,20 @@ const Screen: React.FC<ScreenProps> = ({
       <View
         style={[
           styles.titleContainer,
-          centerTitle ? styles.centerTitle : styles.leftTitle,
+          styles.centerTitle,
           !showBackButton && styles.titleWithoutBack,
         ]}>
         <Text size="large" weight="Medium" style={styles.title}>
           {title}
         </Text>
-        {subtitle && (
-          <Text size="small" weight="Medium" style={styles.subtitle}>
-            {subtitle}
-          </Text>
-        )}
       </View>
 
       {rightIcon ? (
         <TouchableOpacity
+          testID="right-icon"
           onPress={rightIcon.onPress}
           style={styles.rightButton}>
-          <Icon name={rightIcon.name} size={18.9} color={'#000000'} />
+          <Icon name={rightIcon.name as any} size={18.9} color={'#000000'} />
         </TouchableOpacity>
       ) : (
         <View style={styles.rightButton} />

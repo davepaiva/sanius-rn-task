@@ -85,7 +85,6 @@ const MovieListScreen = ({
       showNavbar
       title={getMovieListScreenTitle(category)}
       showBackButton={false}
-      centerTitle={false}
       rightIcon={
         category !== 'saved_movies'
           ? {
@@ -120,6 +119,7 @@ const styles = StyleSheet.create({
   },
   flatList: {
     width: '100%',
+    paddingBottom: 75,
   },
   footerLoader: {
     paddingVertical: 20,

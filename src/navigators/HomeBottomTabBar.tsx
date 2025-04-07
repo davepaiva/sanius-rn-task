@@ -1,6 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import BottomTabBar from '@components/BottomTabBar';
+import BottomTabBar from '@screens/HomeScreen/components/BottomTabBar';
 import MovieListScreen from '@screens/HomeScreen/components/MovieListSreen';
 import withMovieList from '@hoc/WithMovieList';
 import getNowPlayingMovies from '@api/getNowPlayingMovies';

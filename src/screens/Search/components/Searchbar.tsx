@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from '@react-native-vector-icons/ionicons';
 
 interface SearchBarProps {
   onSearch?: (query: string) => void;
@@ -49,6 +49,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           color="#666"
           style={styles.clearIcon}
           onPress={() => handleSearch('')}
+          testID="clear-icon"
         />
       )}
     </View>

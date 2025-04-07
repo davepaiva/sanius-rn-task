@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, TouchableOpacity, StyleSheet} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from '@react-native-vector-icons/material-design-icons';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 
 const BottomTabBar = ({state, navigation}: BottomTabBarProps) => {
@@ -47,7 +47,7 @@ const BottomTabBar = ({state, navigation}: BottomTabBarProps) => {
             style={styles.tabItem}
             activeOpacity={0.7}>
             <Icon
-              name={iconName}
+              name={iconName as any}
               size={24}
               color={isFocused ? '#FFFFFF' : 'rgba(255, 255, 255, 0.5)'}
             />

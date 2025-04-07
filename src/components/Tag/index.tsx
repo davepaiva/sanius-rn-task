@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
-import Text from './Text';
+import {StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
+import Text from '../Text';
 import palette from '@styles/palette';
 
 interface TagProps {
@@ -9,15 +9,17 @@ interface TagProps {
   style?: StyleProp<ViewStyle>;
 }
 
-const Tag: React.FC<TagProps> = ({ label, color = palette.primary, style }) => {
+const Tag: React.FC<TagProps> = ({label, color = palette.primary, style}) => {
   return (
-    <View style={[styles.container, { backgroundColor: color }, style]}>
+    <View
+      testID="tag-container"
+      style={[styles.container, {backgroundColor: color}, style]}>
       <Text
+        testID="tag-text"
         variant={color === palette.surface_primary ? 'primary' : 'light'}
         size="small"
         weight="SemiBold"
-        style={styles.text}
-      >
+        style={styles.text}>
         {label}
       </Text>
     </View>
