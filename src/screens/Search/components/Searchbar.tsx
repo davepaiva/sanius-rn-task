@@ -49,6 +49,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           color="#666"
           style={styles.clearIcon}
           onPress={() => handleSearch('')}
+          testID="clear-icon"
         />
       )}
     </View>
