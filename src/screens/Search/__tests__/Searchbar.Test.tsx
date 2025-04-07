@@ -11,6 +11,10 @@ describe('SearchBar Component', () => {
     toggleResultMode: mockToggleResultMode,
   };
 
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('renders correctly with default props', () => {
     const {getByPlaceholderText} = render(<SearchBar {...defaultProps} />);
 
