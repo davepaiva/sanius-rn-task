@@ -17,6 +17,7 @@ Place `.env` file in project root with the following variables:
 ```sh
 TMDB_BEARER_TOKEN=your_tmdb_bearer_token_here
 TMDB_API_BASE_URL=https://api.themoviedb.org/3
+LOG_API_CURLS=true # for logging API cURLs in console
 
 ```
 
@@ -77,7 +78,6 @@ yarn ios
 If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
 
 This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
 
 # Troubleshooting
 
